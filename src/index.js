@@ -26,7 +26,11 @@ await Promise.all(
         new Todo({
             text: 'I must plan my trip to Europe',
             when: new Date('2021-03-22')
-        })
+        }),
+        new Todo({
+          text: 'I must plan my trip to Maceió',
+          when: new Date('2021-03-22')
+      })
     ]
         .map(todoService.create.bind(todoService))
 )

@@ -1,17 +1,19 @@
+import Todo from './todo.js';
 
 export default class TodoRepository {
     #schedule
     constructor({ db }) {
-        this.#schedule = db.addCollection('schedule')
+      this.#schedule = db.addCollection('schedule');
     }
 
     async list() {
         // deveria ser um .project() mas não temos no lokijs
-        return this.#schedule.find().map(({ meta, $loki, ...result }) => result)
+        return this.#schedule.find().map(({ meta, $loki, ...result }) => new Todo({...result}));
     }
 
     async create(data) {
-        return this.#schedule.insertOne(data)
+        const {$loki, meta, ...result } = this.#schedule.insertOne(data);
+        return new Todo({...result});
     }
 }
 
